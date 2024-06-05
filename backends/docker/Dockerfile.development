@@ -10,7 +10,7 @@ RUN apt-get update \
     && apt-get install -y python python-pip libboost-dev libboost-graph-dev libboost-date-time-dev libboost-system-dev libboost-filesystem-dev libboost-program-options-dev cmake gcc libxerces-c-dev xsdcxx \
     && rm -rf /var/lib/apt/lists/* 
 
-RUN pip install requests
+RUN pip install requests==2.27.1
 
 COPY backends/docker/startup.sh /startup.sh
 
