@@ -16,7 +16,7 @@ WORKDIR /ore-back/
 COPY backends/docker/startup.sh /ore-back/startup.sh
 COPY backends/ /ore-back/
 
-RUN cmake
+RUN cmake .
 RUN make -j
 
 EXPOSE 8000
