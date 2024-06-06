@@ -46,8 +46,8 @@ jobs:
           images: |
             ${{ env.REGISTRY }}/${{ env.IMAGE_NAME}}
           tags: |
-            type=raw,value=${{ steps.extract_branch.outputs.branch }},enable=${{ github.ref != 'refs/heads/main' && steps.extract_branch.outputs.branch != '' }},prefix=fe
-            type=semver,pattern={{raw}},prefix=fe-
+            type=raw,value=fe${{ steps.extract_branch.outputs.branch }},enable=${{ github.ref != 'refs/heads/main' && steps.extract_branch.outputs.branch != '' }}
+            type=semver,pattern={{raw}}
             type=raw,value=fe-latest,enable=${{ github.ref == 'refs/heads/main' }}
 
       - name: Build and push fe
@@ -70,7 +70,7 @@ jobs:
           images: |
             ${{ env.REGISTRY }}/${{ env.IMAGE_NAME}}
           tags: |
-            type=raw,value=${{ steps.extract_branch.outputs.branch }},enable=${{ github.ref != 'refs/heads/main' && steps.extract_branch.outputs.branch != '' }},prefix=be-
+            type=raw,value=be-${{ steps.extract_branch.outputs.branch }},enable=${{ github.ref != 'refs/heads/main' && steps.extract_branch.outputs.branch != '' }},prefix=be-
             type=semver,pattern={{raw}},prefix=be-
             type=raw,value=be-latest,enable=${{ github.ref == 'refs/heads/main' }}
 
