@@ -47,8 +47,8 @@ jobs:
             ${{ env.REGISTRY }}/${{ env.IMAGE_NAME}}
           tags: |
             type=sha,format=short
-            type=semver,pattern={{raw}}
-            type=raw,value=frontend-latest,enable=${{ github.ref == 'refs/heads/main' }}
+            type=semver,pattern=fe-{{raw}}
+            type=raw,value=fe-latest,enable=${{ github.ref == 'refs/heads/main' }}
 
       - name: Build and push fe
         uses: docker/build-push-action@v4
@@ -71,8 +71,8 @@ jobs:
             ${{ env.REGISTRY }}/${{ env.IMAGE_NAME}}
           tags: |
             type=sha,format=short
-            type=semver,pattern={{raw}}
-            type=raw,value=backends-latest,enable=${{ github.ref == 'refs/heads/main' }}
+            type=semver,pattern=be-{{raw}}
+            type=raw,value=be-latest,enable=${{ github.ref == 'refs/heads/main' }}
 
       - name: Build and push be
         uses: docker/build-push-action@v4
