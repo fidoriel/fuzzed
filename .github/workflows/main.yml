@@ -16,8 +16,8 @@ env:
   IMAGE_NAME: ${{ github.repository }}
 
 jobs:
-   build_frontend:
-    name: build frontend
+   build_docker:
+    name: build docker
     runs-on: ubuntu-latest
 
     steps:
@@ -46,7 +46,7 @@ jobs:
           images: |
             ${{ env.REGISTRY }}/${{ env.IMAGE_NAME}}
           tags: |
-            type=sha,format=short
+            type=sha,format=short,pattern=fe-{{raw}}
             type=semver,pattern=fe-{{raw}}
             type=raw,value=fe-latest,enable=${{ github.ref == 'refs/heads/main' }}
 
@@ -70,7 +70,7 @@ jobs:
           images: |
             ${{ env.REGISTRY }}/${{ env.IMAGE_NAME}}
           tags: |
-            type=sha,format=short
+            type=sha,format=short,pattern=be-{{raw}}
             type=semver,pattern=be-{{raw}}
             type=raw,value=be-latest,enable=${{ github.ref == 'refs/heads/main' }}
 
