@@ -16,7 +16,8 @@ WORKDIR /ore-back/
 COPY backends/docker/startup.sh /ore-back/startup.sh
 COPY backends/ /ore-back/
 
-RUN cmake . && make
+RUN cmake
+RUN make -j
 
 EXPOSE 8000
 CMD ["bash", "/ore-back/startup.sh"]
