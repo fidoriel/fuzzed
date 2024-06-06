@@ -15,6 +15,7 @@ RUN pip install requests==2.27.1
 WORKDIR /ore-back/
 COPY backends/docker/startup.sh /ore-back/startup.sh
 COPY backends/ /ore-back/
+COPY common/ /ore-common/
 
 RUN cmake .
 RUN make -j
