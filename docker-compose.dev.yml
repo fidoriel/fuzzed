@@ -1,0 +1,51 @@
+version: '3'
+
+services:
+  ore-db-dev:
+    image: postgres:9
+    container_name: ore-db-dev
+    environment:
+      POSTGRES_PASSWORD: ore
+      POSTGRES_USER: ore
+      POSTGRES_DB: ore
+    volumes:
+      - postgres-volume:/var/lib/postgresql/data
+
+  ore-front-dev:
+    image: ghcr.io/fidoriel/fuzzed:fe-docker-build-ci
+    container_name: ore-front-dev
+    command:  sh -c '/ore-front/manage.py migrate && uwsgi --http 127.0.0.1:8000 --py-autoreload 1 --wsgi-file ore/wsgi.py --static-map /static/=/ore-front/ore/static-release/'
+    build:
+      context: .
+      dockerfile: ./frontend/Dockerfile
+    environment:
+      ORE_BACKEND_DAEMON: http://ore-back-dev:8000
+      ORE_SERVER_URL: http://localhost
+      ORE_SERVER: localhost
+      ORE_DB_NAME: ore
+      ORE_DB_USER: ore
+      ORE_DB_PASSWORD: ore
+      ORE_DB_HOST: ore-db-dev
+      ENV ORE_MODE: development
+    ports:
+      - 8000:8000
+    depends_on:
+      - ore-db-dev
+      - ore-back-dev
+    volumes:
+      - ./frontend:/ore-front
+      - ./common:/ore-common
+
+  ore-back-dev: # to build docker compose exec ore-back-dev cmake . && make
+    image: ghcr.io/fidoriel/fuzzed:be-docker-build-ci
+    container_name: ore-back-dev
+    build:
+      context: .
+      dockerfile: ./backends/Dockerfile
+    volumes:
+      - ./backends:/ore-back
+      - ./common:/ore-common
+      - /ore-back/lib
+
+volumes:
+  postgres-volume:
