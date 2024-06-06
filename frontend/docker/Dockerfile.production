@@ -19,7 +19,7 @@ WORKDIR /ore-front
 COPY frontend/ /ore-front
 
 RUN python /ore-front/manage.py collectstatic -v3 --noinput
-
+ENV DJANGO_CONFIGURATION=Production
 ENV PYTHONUNBUFFERED 1
 EXPOSE 8000
 CMD sh -c '/ore-front/manage.py migrate && uwsgi --http 0.0.0.0:8000 --wsgi-file ore/wsgi.py --static-map /static/=/ore-front/ore/static-release/'
