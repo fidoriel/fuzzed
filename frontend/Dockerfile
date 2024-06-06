@@ -2,7 +2,7 @@
 
 FROM ubuntu:bionic
 
-ENV ORE_MODE production
+ENV DJANGO_CONFIGURATION=Production
 ENV DEBIANFRONTEND=nointeractive
 
 # Prepare Ansible environment
@@ -15,10 +15,7 @@ RUN pip install PyXB==1.2.6 defusedxml==0.7.1 psycopg2-binary==2.8.6 django==1.8
 RUN pip install git+https://github.com/django-tastypie/django-tastypie.git@256ebe1de9a78dfb5d4d6e938b813cf4c5c4ac1b
 
 WORKDIR /ore-front
-
 COPY frontend/ /ore-front
-
-ENV DJANGO_CONFIGURATION=Production
 
 ENV PYTHONUNBUFFERED 1
 EXPOSE 8000
