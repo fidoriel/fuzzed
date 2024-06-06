@@ -234,3 +234,6 @@ class Production(Common):
     LOGGING['loggers']['django.request']['handlers'] = ['mail_admins']
     LOGGING['loggers']['ore']['handlers'] = ['console']
     FOOTER = values.Value('ORE Development Team', environ_prefix='ORE')
+
+    SOCIAL_AUTH_USERNAME_FORM_URL = '/'
+    SOCIAL_AUTH_USERNAME_FORM_HTML = 'dev_login.html' if bool(os.environ.get('ORE_DEV_LOGIN', False)) is True else None
