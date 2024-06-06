@@ -46,8 +46,11 @@ jobs:
           images: |
             ${{ env.REGISTRY }}/${{ env.IMAGE_NAME}}
           tags: |
+            type=ref,event=branch
+            type=ref,event=pr
+            type=ref,event=tag
             type=sha,format=short,pattern=fe-{{.ShortRef}}
-            type=semver,pattern=fe-{{version}}
+            type=semver,pattern={{raw}}
             type=raw,value=fe-latest,enable=${{ github.ref == 'refs/heads/main' }}
 
       - name: Build and push fe
@@ -70,8 +73,11 @@ jobs:
           images: |
             ${{ env.REGISTRY }}/${{ env.IMAGE_NAME}}
           tags: |
+            type=ref,event=branch
+            type=ref,event=pr
+            type=ref,event=tag
             type=sha,format=short,pattern=be-{{.ShortRef}}
-            type=semver,pattern=be-{{version}}
+            type=semver,pattern={{raw}}
             type=raw,value=be-latest,enable=${{ github.ref == 'refs/heads/main' }}
 
       - name: Build and push be
