@@ -26,6 +26,7 @@ services:
       ORE_DB_PASSWORD: ore 
       ORE_DB_HOST: ore-db
       ORE_SECRET_KEY: change-me-to-something-random-and-very-secret
+      ORE_DEV_LOGIN: 1
     ports:
       - 8000:8000
     depends_on:

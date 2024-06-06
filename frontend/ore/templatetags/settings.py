@@ -20,4 +20,4 @@ def setting(name):
 
 @register.assignment_tag
 def get_dev_login():
-    return os.environ.get('DEV_LOGIN', False) is True or settings.DEBUG is True
+    return os.environ.get('ORE_DEV_LOGIN', False) is True or settings.DEBUG is True
