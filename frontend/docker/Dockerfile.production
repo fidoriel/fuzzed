@@ -16,7 +16,7 @@ RUN pip install git+https://github.com/django-tastypie/django-tastypie.git@256eb
 
 WORKDIR /ore-front
 
-COPY . .
+COPY frontend/ .
 
 RUN python manage.py collectstatic -v3 --noinput
 
