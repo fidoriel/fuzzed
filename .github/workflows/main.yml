@@ -75,7 +75,7 @@ jobs:
           images: |
             ${{ env.REGISTRY }}/${{ env.IMAGE_NAME}}
           tags: |
-            type=raw,value=be-${{ steps.extract_branch.outputs.branch }},enable=${{ github.ref != 'refs/heads/main' && steps.extract_branch.outputs.branch != '' }},prefix=be-
+            type=raw,value=${{ steps.extract_branch.outputs.branch }},enable=${{ github.ref != 'refs/heads/main' && steps.extract_branch.outputs.branch != '' }},prefix=be-
             type=semver,pattern={{raw}},prefix=be-
             type=raw,value=be-latest,enable=${{ github.ref == 'refs/heads/main' }}
 
