@@ -33,7 +33,7 @@ services:
       - ore-back
 
   ore-back:
-    image: ghcr.io/fidoriel/fuzzed:fe-docker-build-ci
+    image: ghcr.io/fidoriel/fuzzed:be-docker-build-ci
     container_name: ore-back
     build: 
       context: .

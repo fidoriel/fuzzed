@@ -4,6 +4,8 @@
 
 # ORE - The Open Reliability Editor (former FuzzEd)
 
+> This is a legacy application without maintenance. This is not ment to run anywhere exposed to the internet. Please make sure to run a reverse proxy with basicauth in front. All versions are pinned so that the `Dockerfile.production` can run. For a working example please see `docker-compose.prod.yml`.
+
 Note: FuzzEd becomes ORE. We are in the middle of that process, so don't get confused while both names are still in use.
 
 ORE is an browser-based editor for drawing and analyzing dependability models. The currently supported types are:
