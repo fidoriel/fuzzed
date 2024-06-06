@@ -37,6 +37,11 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Extract branch name
+        shell: bash
+        run: echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_OUTPUT
+        id: extract_branch
+
       - name: Docker fe-meta
         id: fe-meta
         uses: docker/metadata-action@v4
@@ -46,8 +51,8 @@ jobs:
           images: |
             ${{ env.REGISTRY }}/${{ env.IMAGE_NAME}}
           tags: |
-            type=raw,value=fe${{ steps.extract_branch.outputs.branch }},enable=${{ github.ref != 'refs/heads/main' && steps.extract_branch.outputs.branch != '' }}
-            type=semver,pattern={{raw}}
+            type=raw,value=${{ steps.extract_branch.outputs.branch }},enable=${{ github.ref != 'refs/heads/main' && steps.extract_branch.outputs.branch != '' }},prefix=fe-
+            type=semver,pattern={{raw}},prefix=fe-
             type=raw,value=fe-latest,enable=${{ github.ref == 'refs/heads/main' }}
 
       - name: Build and push fe
