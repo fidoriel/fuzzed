@@ -9,10 +9,10 @@ services:
       POSTGRES_USER: ore
       POSTGRES_DB: ore
     volumes:
-      - postgres-volume:/var/lib/postgresql/data
+      - postgres-volume-dev:/var/lib/postgresql/data
 
   ore-front-dev:
-    image: ghcr.io/fidoriel/fuzzed:fe-docker-build-ci
+    image: ghcr.io/fidoriel/fuzzed:fe-latest
     container_name: ore-front-dev
     command:  sh -c '/ore-front/manage.py migrate && ./manage.py runserver 0.0.0.0:8000'
     build:
@@ -39,7 +39,7 @@ services:
       - ./common:/ore-common
 
   ore-back-dev: # to build docker compose exec ore-back-dev cmake . && make
-    image: ghcr.io/fidoriel/fuzzed:be-docker-build-ci
+    image: ghcr.io/fidoriel/fuzzed:be-latest
     container_name: ore-back-dev
     build:
       context: .
@@ -50,4 +50,4 @@ services:
       - /ore-back/lib
 
 volumes:
-  postgres-volume:
+  postgres-volume-dev:

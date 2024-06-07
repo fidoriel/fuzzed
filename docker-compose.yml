@@ -8,15 +8,17 @@ services:
       POSTGRES_PASSWORD: ore
       POSTGRES_USER: ore
       POSTGRES_DB: ore
+    restart: always
     volumes:
       - postgres-volume:/var/lib/postgresql/data
 
   ore-front:
-    image: ghcr.io/fidoriel/fuzzed:fe-docker-build-ci
+    image: ghcr.io/fidoriel/fuzzed:fe-latest
     container_name: ore-front
     build:
       context: .
       dockerfile: ./frontend/Dockerfile
+    restart: always
     environment:
       ORE_BACKEND_DAEMON: http://ore-back:8000
       ORE_SERVER_URL: http://localhost
@@ -34,8 +36,9 @@ services:
       - ore-back
 
   ore-back:
-    image: ghcr.io/fidoriel/fuzzed:be-docker-build-ci
+    image: ghcr.io/fidoriel/fuzzed:be-latest
     container_name: ore-back
+    restart: always
     build:
       context: .
       dockerfile: ./backends/Dockerfile
